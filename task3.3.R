@@ -4,6 +4,7 @@ library(dplyr)
 library(tidyr)
 library(caret)
 library(ggplot2)
+library(corrplot)
 
 #setwd and seed
 setwd("C:/Users/VPL/Desktop/Data Science/Ubiqum/Module 3")
@@ -87,8 +88,30 @@ cf_weight <- mutate(cf_weight, samsungSentiment = (samsungpos + samsungneg + sam
 head(cf_weight)
 
 
-iphonelargematrix
 
+iphonelargematrix <- cf_weight[c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32, 33)]
+head(iphonelargematrix)
 
+samsunglargematrix <- cf_weight[c(3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 34, 35, 36, 37)]
+head(samsunglargematrix)
 
+#variance
+which(apply(iphonelargematrix, 2, var) == 0)
+which(apply(iphonelargematrix, 1, var) == 0)
+iphone <- iphonelargematrix[-c(which(apply(iphonelargematrix, 1, var) == 0)),]
+which(apply(samsunglargematrix, 2, var) == 0)
+samsung <- samsunglargematrix[-c(which(apply(samsunglargematrix, 1, var) == 0)),]
+head(iphone)
 
+hist(iphone$iphoneSentiment)
+hist(iphone$iphoneSentiment, xlim=c(1200,1300), ylim=c(0,100))
+hist(samsung$samsungSentiment)
+iphone_wol <- filter(iphone, iphoneSentiment < 1200)
+samsung_wol <- filter(samsung, samsungSentiment < 400)
+samsung_end <- distinct(samsung_wol)
+iphone_end <- distinct(iphone_wol)
+
+hist(iphone_end$iphoneSentiment)
+hist(samsung_end$samsungSentiment)
+summary(iphone_end)
+corrplot(cor(iphone_end), method = "number")
