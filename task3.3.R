@@ -120,7 +120,7 @@ hist(iphone_end$iphoneSentiment)
 hist(samsung_end$samsungSentiment)
 summary(iphone_end)
 
-#correlation
+#correlation (check the correlation between both)
 corrplot(cor(iphone_end), method = "number")
 corrplot(cor(cf_weight), method = "number")
 corrplot(cor(sentiment), method = "number")
@@ -129,7 +129,7 @@ ggplot(iphone_end) + geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphonepos)
 ggplot(iphone_end) + geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphonepos), color = "blue") +
   geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphoneneg) , color = "red")
 
-#bins
+#bins (we create 7 different levels in order to get a better idea)
 iphone_end$iphoneSentiment <- discretize(iphone_end$iphoneSentiment, "fixed", categories= c(-Inf, -40, -10, -1, 1, 10, 40, Inf))
 levels(iphone_end$iphoneSentiment) <- c("very negative", "negative", "somewhat negative", "normal", "somewhat positive", "positive", "very positive")
 ggplot(iphone_end) + geom_bar(aes(x=iphone_end$iphoneSentiment))
@@ -137,18 +137,3 @@ ggplot(iphone_end) + geom_bar(aes(x=iphone_end$iphoneSentiment))
 samsung_end$samsungSentiment<- discretize(samsung_end$samsungSentiment, "fixed", categories= c(-Inf, -40, -10, -1, 1, 10, 40, Inf))
 levels(samsung_end$samsungSentiment) <- c("very negative", "negative", "somewhat negative", "normal", "somewhat positive", "positive", "very positive")
 ggplot(samsung_end) + geom_bar(aes(x=samsung_end$samsungSentiment))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
