@@ -125,9 +125,11 @@ corrplot(cor(iphone_end), method = "number")
 corrplot(cor(cf_weight), method = "number")
 corrplot(cor(sentiment), method = "number")
 ggplot(iphone_end) + geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphonepos), color = "blue") +
-  geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphoneneg) , color = "red")
-ggplot(iphone_end) + geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphonepos), color = "blue") +
-  geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphoneneg) , color = "red")
+  geom_line(aes(x = seq_len(nrow(iphone_end)), y = iphoneneg) , color = "red") + 
+  labs(title ="Iphone Sentiment", x = "Observations", y = "Negative                                Positive") 
+ggplot(samsung_end) + geom_line(aes(x = seq_len(nrow(samsung_end)), y = samsungpos), color = "blue") +
+  geom_line(aes(x = seq_len(nrow(samsung_end)), y = samsungneg) , color = "red") +
+  labs(title ="Samsung Sentiment", x = "Observations", y = "Negative                                Positive") 
 
 #bins (we create 7 different levels in order to get a better idea)
 iphone_end$iphoneSentiment <- discretize(iphone_end$iphoneSentiment, "fixed", categories= c(-Inf, -40, -10, -1, 1, 10, 40, Inf))
